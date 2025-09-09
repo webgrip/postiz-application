@@ -1,0 +1,6 @@
+dependencies:
+- name: postiz-app
+  repository: oci://ghcr.io/gitroomhq/postiz-helmchart/charts
+  version: 1.0.5
+digest: sha256:2a0ab00f7aeac7ace60b9d17a3860c89d396aae7fe9bdbaa286dcda7ca2460be
+generated: "2025-09-09T15:56:38.905978522Z"
