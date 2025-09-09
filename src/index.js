@@ -1,9 +1,9 @@
 // Application Template Entry Point
 // Replace this with your actual application code
 
-const http = require('http');
+import http from 'http';
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 9000;
 
 const server = http.createServer((req, res) => {
   if (req.url === '/health') {
