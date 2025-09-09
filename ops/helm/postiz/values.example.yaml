@@ -1,0 +1,44 @@
+# Example values for Postiz deployment
+# Copy this file and customize for your environment
+
+postiz-app:
+  ingress:
+    enabled: true
+    className: "nginx"  # or your ingress class
+    hosts:
+      - host: postiz.yourdomain.com  # CHANGE THIS
+        paths:
+          - path: /
+            pathType: Prefix
+            port: 80
+    tls:
+      - secretName: postiz-tls
+        hosts:
+          - postiz.yourdomain.com  # CHANGE THIS
+
+  postgresql:
+    auth:
+      password: "your-secure-db-password"  # CHANGE THIS
+    primary:
+      persistence:
+        storageClass: "gp2"  # CHANGE THIS to your storage class
+
+  redis:
+    auth:
+      password: "your-secure-redis-password"  # CHANGE THIS
+    master:
+      persistence:
+        storageClass: "gp2"  # CHANGE THIS to your storage class
+
+  env:
+    FRONTEND_URL: "https://postiz.yourdomain.com"  # CHANGE THIS
+    NEXT_PUBLIC_BACKEND_URL: "https://postiz.yourdomain.com/api"  # CHANGE THIS
+
+  secrets:
+    JWT_SECRET: "your-jwt-secret-here"  # CHANGE THIS - generate a secure random string
+    
+    # Optional: Social media API credentials
+    # X_API_KEY: ""
+    # X_API_SECRET: ""
+    # LINKEDIN_CLIENT_ID: ""
+    # LINKEDIN_CLIENT_SECRET: ""
