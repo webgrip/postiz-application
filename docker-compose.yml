@@ -1,110 +1,101 @@
 services:
-  postiz-application.application:
-    container_name: postiz-application.application
-    image: webgrip/postiz-application:latest
-    pull_policy: never
-    build:
-      context: .
-      dockerfile: ops/docker/application/Dockerfile
+  postiz:
+    image: ghcr.io/gitroomhq/postiz-app:latest
+    container_name: postiz
     restart: always
-    depends_on:
-      postiz-application.mariadb:
-        condition: service_healthy
-      postiz-application.redis:
-        condition: service_healthy
-    ports:
-      - "127.0.0.1:9000:9000"
-    env_file: ./.env
     environment:
-      DB_TYPE: ${DB_CONNECTION:-}
-      DB_STRICT: "false"
-      LOG_CHANNEL: stack
-      REQUIRE_HTTPS: "false"
-    volumes:
-      - ./.env:/var/www/app/.env
-      - postiz-application-application-public-data:/var/www/app/public
-      - postiz-application-application-storage-data:/var/www/app/storage
+      # === Required Settings
+      MAIN_URL: "http://localhost:5000"
+      FRONTEND_URL: "http://localhost:5000"
+      NEXT_PUBLIC_BACKEND_URL: "http://localhost:5000/api"
+      JWT_SECRET: "postiz-application-jwt-secret-change-this-in-production"
+      DATABASE_URL: "postgresql://postiz-user:postiz-password@postiz-postgres:5432/postiz-db-local"
+      REDIS_URL: "redis://postiz-redis:6379"
+      BACKEND_INTERNAL_URL: "http://localhost:3000"
+      IS_GENERAL: "true"
+      DISABLE_REGISTRATION: "false"
 
-  postiz-application.nginx:
-    container_name: postiz-application.nginx
-    image: webgrip/postiz-application-nginx:latest
-    pull_policy: never
-    build:
-      context: .
-      dockerfile: ops/docker/nginx/Dockerfile
+      # === Storage Settings
+      STORAGE_PROVIDER: "local"
+      UPLOAD_DIRECTORY: "/uploads"
+      NEXT_PUBLIC_UPLOAD_DIRECTORY: "/uploads"
+
+      # === Social Media API Settings (Add your keys here)
+      X_API_KEY: ""
+      X_API_SECRET: ""
+      LINKEDIN_CLIENT_ID: ""
+      LINKEDIN_CLIENT_SECRET: ""
+      REDDIT_CLIENT_ID: ""
+      REDDIT_CLIENT_SECRET: ""
+      GITHUB_CLIENT_ID: ""
+      GITHUB_CLIENT_SECRET: ""
+      
+      # === Misc Settings
+      OPENAI_API_KEY: ""
+      API_LIMIT: 30
+      
+      # === Development Settings
+      NOT_SECURED: "true"
+      NX_ADD_PLUGINS: false
+
+    volumes:
+      - postiz-config:/config/
+      - postiz-uploads:/uploads/
+    ports:
+      - "127.0.0.1:5000:5000"
+    networks:
+      - postiz-network
+    depends_on:
+      postiz-postgres:
+        condition: service_healthy
+      postiz-redis:
+        condition: service_healthy
+
+  postiz-postgres:
+    image: postgres:17-alpine
+    container_name: postiz-postgres
     restart: always
-    depends_on:
-      - postiz-application.application
-    ports:
-      - "127.0.0.1:8080:80"
-    volumes:
-      - postiz-application-application-public-data:/var/www/app/public:ro
-
-  postiz-application.mariadb:
-    container_name: postiz-application.mariadb
-    image: webgrip/postiz-application-mariadb:latest
-    build:
-      context: .
-      dockerfile: ops/docker/mariadb/Dockerfile
-    pull_policy: never
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:3306:3306"
-    logging:
-      options:
-        max-size: 10m
-    env_file:
-      - ./.env
     environment:
-      MARIADB_DATABASE: ${DB_DATABASE:-application}
-      MARIADB_USER: ${DB_USERNAME:-application}
-      MARIADB_PASSWORD: ${DB_PASSWORD:-application}
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
-      MARIADB_CHARACTER_SET_SERVER: utf8mb4
-      MARIADB_COLLATION_SERVER: utf8mb4_unicode_ci
+      POSTGRES_PASSWORD: postiz-password
+      POSTGRES_USER: postiz-user
+      POSTGRES_DB: postiz-db-local
     volumes:
-      - postiz-application-mariadb-data:/var/lib/mysql
+      - postgres-volume:/var/lib/postgresql/data
+    networks:
+      - postiz-network
     healthcheck:
-      test:
-        [
-          "CMD",
-          "mariadb",
-          "--user=${DB_USERNAME:-application}",
-          "--password=${DB_PASSWORD:-application}",
-          "--execute=SELECT 1",
-        ]
+      test: pg_isready -U postiz-user -d postiz-db-local
       interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 30s
-
-  postiz-application.redis:
-    container_name: postiz-application.redis
-    image: webgrip/postiz-application-redis:latest
-    pull_policy: never
-    build:
-      context: .
-      dockerfile: ops/docker/redis/Dockerfile
+      timeout: 3s
+      retries: 3
+      
+  postiz-redis:
+    image: redis:7.2
+    container_name: postiz-redis
     restart: always
-    volumes:
-      - postiz-application-redis-data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 5s
+      test: redis-cli ping
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - postiz-redis-data:/data
+    networks:
+      - postiz-network
 
 volumes:
-  postiz-application-application-storage-data:
-  postiz-application-application-public-data:
+  postgres-volume:
+    external: false
 
-  postiz-application-mariadb-data:
-  postiz-application-redis-data:
-  certificate-data:
-    external: true
+  postiz-redis-data:
+    external: false
+
+  postiz-config:
+    external: false
+
+  postiz-uploads:
+    external: false
 
 networks:
-  default:
-    external: true
-    name: webgrip
+  postiz-network:
+    external: false

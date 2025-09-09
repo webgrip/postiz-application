@@ -8,11 +8,11 @@
 SHELL := /usr/bin/bash
 .ONESHELL:
 .DEFAULT_GOAL := help
-#   make expose NAMESPACE=invoiceninja-application SERVICE_NAME=invoiceninja-application REMOTE_PORT=80
-APP_NAME      ?= invoiceninja-application
+#   make expose NAMESPACE=postiz-application SERVICE_NAME=postiz-application REMOTE_PORT=80
+APP_NAME      ?= postiz-application
 NAMESPACE     ?= $(APP_NAME)
 SERVICE_NAME  ?= $(APP_NAME)
-APP_SERVICE   ?= $(APP_NAME).application
+APP_SERVICE   ?= postiz
 ENV_FILE      ?= .env
 COMPOSE       ?= docker-compose
 HELMFILE      ?= helmfile
@@ -31,8 +31,8 @@ RELEASE       ?= $(APP_NAME)
 HELM_VALUES   ?=
 
 # Kubernetes port forwarding
-LOCAL_PORT    ?= 8080
-REMOTE_PORT   ?= 80
+LOCAL_PORT    ?= 5000
+REMOTE_PORT   ?= 5000
 
 # Colors for nicer output
 C_RESET := \033[0m
@@ -403,14 +403,14 @@ wait-ready:  ## Poll a URL until HTTP 200 (URL=...)
 
 # --- App bootstrap -----------------------------------------------------------
 
-## Create an admin user (EMAIL, PASS envs optional; customize command for your app)
+## Create a user in Postiz (EMAIL, PASS envs optional)
 user\:create: ## Create user (override EMAIL=user@example.com PASS=pass)
 	@$(call _req_cmd,$(word 1,$(COMPOSE)))
 	: $${EMAIL:=admin@example.com}; \
 	: $${PASS:=password}; \
 	printf "$(C_INFO)Creating user %s...$(C_RESET)\n" "$$EMAIL"; \
-	$(COMPOSE) exec $(APP_SERVICE) php artisan ninja:create-account --email="$$EMAIL" --password="$$PASS"; \
-	printf "$(C_OK)User creation complete.$(C_RESET)\n"
+	printf "$(C_WARN)Note: User creation should be done through the Postiz UI after startup$(C_RESET)\n"; \
+	printf "$(C_INFO)Visit http://localhost:5000 to register a new account$(C_RESET)\n"
 
 # --- Phony list ---------------------------------------------------------------
 
