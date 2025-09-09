@@ -1,6 +1,6 @@
 # Postiz Docker Setup
 
-This repository provides a Docker Compose setup for running [Postiz](https://postiz.com) - an open-source social media scheduling tool. This setup uses the official Postiz Docker image following the [official documentation](https://docs.postiz.com/installation/docker-compose).
+This repository provides a Docker Compose setup for running [Postiz](https://postiz.com) - an open-source social media scheduling tool. This setup uses a custom Dockerfile that extends the official Postiz Docker image, allowing for customization while following the [official documentation](https://docs.postiz.com/installation/docker-compose).
 
 ## Overview
 
@@ -17,6 +17,17 @@ Postiz is an alternative to Buffer, Hypefury, and other social media scheduling 
 - Mastodon
 - Bluesky
 - And more...
+
+## Architecture
+
+This setup uses:
+- **Custom Application Dockerfile**: Built from the official `ghcr.io/gitroomhq/postiz-app:latest` image
+- **PostgreSQL 17**: Database backend (required by Postiz)
+- **Redis**: Caching and session storage
+
+```
+Internet → http://localhost:5000 → Custom Postiz Build → PostgreSQL + Redis
+```
 
 ## Prerequisites
 
@@ -67,9 +78,39 @@ Internet → http://localhost:5000 → Postiz App
 
 ### Services
 
-- **postiz**: Main application (official `ghcr.io/gitroomhq/postiz-app:latest`)
+- **postiz**: Custom application built from official `ghcr.io/gitroomhq/postiz-app:latest` base image
 - **postiz-postgres**: PostgreSQL 17 database
 - **postiz-redis**: Redis 7.2 for caching and job queues
+
+## Custom Dockerfile Approach
+
+This setup uses a custom Dockerfile (`ops/docker/application/Dockerfile`) that extends the official Postiz image:
+
+```dockerfile
+# Use official Postiz image as base
+FROM ghcr.io/gitroomhq/postiz-app:latest
+
+# Copy any custom application files if needed
+# COPY src/ ./src/
+
+# The official Postiz image already has everything needed
+# Just expose the port and use the default entrypoint
+EXPOSE 5000
+```
+
+### Benefits:
+- **Customizable**: Add your own files, configurations, or modifications
+- **Version Control**: Your customizations are tracked in your repository  
+- **Extensible**: Easy to add custom features while maintaining Postiz compatibility
+- **Official Base**: Still uses the official, maintained Postiz image as foundation
+
+### Adding Custom Code:
+To add custom application code, uncomment and modify the COPY line:
+```dockerfile
+COPY src/ ./src/
+```
+
+This approach allows you to extend Postiz functionality while maintaining compatibility with official updates.
 
 ## Configuration
 

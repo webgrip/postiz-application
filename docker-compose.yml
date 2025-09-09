@@ -1,7 +1,11 @@
 services:
   postiz:
-    image: ghcr.io/gitroomhq/postiz-app:latest
     container_name: postiz
+    image: webgrip/postiz-application:latest
+    pull_policy: never
+    build:
+      context: .
+      dockerfile: ops/docker/application/Dockerfile
     restart: always
     environment:
       # === Required Settings
