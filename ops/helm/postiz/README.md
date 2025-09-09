@@ -1,180 +1,299 @@
-# Postiz Helm Chart Deployment
+# Postiz Helm Chart
 
-This directory contains the Helm deployment configuration for Postiz using the official Helm chart from the Postiz project.
+This directory contains the Helm chart configuration for deploying Postiz, an open-source social media scheduling tool, on Kubernetes.
 
 ## Overview
 
-This setup uses the official Postiz Helm chart as a dependency, following the documentation at:
-- https://docs.postiz.com/installation/kubernetes-helm
-- https://github.com/gitroomhq/postiz-helmchart
+This chart uses the **official Postiz Helm chart** from [gitroomhq/postiz-helmchart](https://github.com/gitroomhq/postiz-helmchart) as a dependency. It provides a complete, production-ready deployment including:
+
+- **Postiz Application**: The main social media scheduling application
+- **PostgreSQL**: Database for storing posts, users, and configuration
+- **Redis**: Cache and session storage
+- **Ingress**: External access with TLS termination
+- **Persistent Storage**: Data persistence for database and uploads
 
 ## Prerequisites
 
-1. **Kubernetes cluster** with appropriate permissions
-2. **Helm 3.x** installed
-3. **Storage classes** configured in your cluster
-4. **Ingress controller** (e.g., nginx-ingress) if using ingress
-5. **Cert-manager** (optional, for automatic TLS certificates)
+Before deploying Postiz, ensure you have:
 
-## Required Configuration
+- **Kubernetes cluster** (v1.19+)
+- **Helm** (v3.0+)
+- **Ingress controller** (e.g., NGINX, Traefik)
+- **Cert-manager** (optional, for automatic TLS certificates)
+- **StorageClass** configured for persistent volumes
 
-Before installing, you **must** update the following values in `values.yaml`:
-
-### Domain Configuration
-```yaml
-postiz-app:
-  ingress:
-    hosts:
-      - host: your-domain.com  # Replace with your actual domain
-    tls:
-      - hosts:
-          - your-domain.com   # Replace with your actual domain
-  env:
-    FRONTEND_URL: "https://your-domain.com"
-    NEXT_PUBLIC_BACKEND_URL: "https://your-domain.com/api"
-```
-
-### Storage Classes
-```yaml
-postiz-app:
-  postgresql:
-    primary:
-      persistence:
-        storageClass: "your-storage-class"  # e.g., "gp2", "standard", etc.
-  redis:
-    master:
-      persistence:
-        storageClass: "your-storage-class"  # e.g., "gp2", "standard", etc.
-```
-
-### Security Configuration
-```yaml
-postiz-app:
-  postgresql:
-    auth:
-      password: "secure-password"  # Generate a secure password
-  redis:
-    auth:
-      password: "secure-redis-password"  # Generate a secure password
-  secrets:
-    JWT_SECRET: "your-jwt-secret"  # Generate a secure JWT secret
-```
-
-## Installation
+## Quick Start
 
 ### 1. Update Dependencies
+
+First, download the official Postiz chart:
 
 ```bash
 cd ops/helm/postiz
 helm dependency update
 ```
 
-### 2. Install the Chart
+### 2. Configure Values
+
+Copy the example values and customize for your environment:
+
+```bash
+cp values.yaml my-values.yaml
+```
+
+Edit `my-values.yaml` and update the following **REQUIRED** fields:
+
+```yaml
+postiz-app:
+  ingress:
+    hosts:
+      - host: your-domain.com  # Replace with your domain
+    tls:
+      - hosts:
+          - your-domain.com    # Replace with your domain
+  
+  env:
+    FRONTEND_URL: "https://your-domain.com"
+    NEXT_PUBLIC_BACKEND_URL: "https://your-domain.com/api"
+  
+  postgresql:
+    auth:
+      password: "your-secure-db-password"    # Generate a secure password
+    primary:
+      persistence:
+        storageClass: "your-storage-class"   # e.g., "gp2", "standard"
+  
+  redis:
+    auth:
+      password: "your-secure-redis-password" # Generate a secure password
+    master:
+      persistence:
+        storageClass: "your-storage-class"   # e.g., "gp2", "standard"
+  
+  secrets:
+    JWT_SECRET: "your-jwt-secret"            # Generate: openssl rand -base64 32
+```
+
+### 3. Deploy
+
+Deploy Postiz to your Kubernetes cluster:
 
 ```bash
 # Create namespace
 kubectl create namespace postiz
 
-# Install with custom values
+# Install the chart
 helm upgrade --install postiz . \
   --namespace postiz \
-  --values values.yaml
+  --values my-values.yaml
 ```
 
-### 3. Alternative: Install Directly from OCI Registry
+### 4. Access the Application
 
-You can also install directly from the official OCI registry:
-
-```bash
-# Install directly from OCI registry
-helm upgrade --install postiz \
-  oci://ghcr.io/gitroomhq/postiz-helmchart/postiz-app \
-  --version 1.0.5 \
-  --namespace postiz \
-  --create-namespace \
-  --values values.yaml
-```
+Once deployed, access Postiz at your configured domain (e.g., `https://your-domain.com`).
 
 ## Configuration
 
-### Environment Variables
+### Database Configuration
 
-The chart supports all standard Postiz environment variables. Key configurations include:
+The chart includes PostgreSQL by default. For production deployments, consider:
 
-- **Database**: PostgreSQL with configurable credentials and persistence
-- **Cache**: Redis with configurable credentials and persistence  
-- **Authentication**: JWT-based with configurable secret
-- **Social Media APIs**: Optional integration with X, LinkedIn, Reddit, GitHub
-- **Storage**: Optional Cloudflare R2 integration
-- **Email**: Optional Resend integration
-
-### Secrets Management
-
-Sensitive values are stored in Kubernetes Secrets. For production deployments, consider:
-
-1. **External Secrets Operator** for integration with external secret stores
-2. **Sealed Secrets** for encrypted secrets in Git
-3. **Manual secret creation** before deployment
-
-Example manual secret creation:
-```bash
-kubectl create secret generic postiz-secrets \
-  --from-literal=JWT_SECRET="your-secure-jwt-secret" \
-  --from-literal=DATABASE_PASSWORD="your-db-password" \
-  --namespace postiz
+```yaml
+postiz-app:
+  postgresql:
+    enabled: true
+    auth:
+      password: "secure-password"
+    primary:
+      persistence:
+        enabled: true
+        size: 20Gi
+        storageClass: "fast-ssd"
 ```
 
-## Monitoring and Maintenance
+### External Database
 
-### Check Deployment Status
-```bash
-kubectl get pods -n postiz
-kubectl get services -n postiz
-kubectl get ingress -n postiz
+To use an external PostgreSQL database:
+
+```yaml
+postiz-app:
+  postgresql:
+    enabled: false
+  secrets:
+    DATABASE_URL: "postgresql://user:password@external-host:5432/postiz"
 ```
 
-### View Logs
-```bash
-kubectl logs -f deployment/postiz-postiz-app -n postiz
+### Redis Configuration
+
+Redis is used for caching and sessions:
+
+```yaml
+postiz-app:
+  redis:
+    enabled: true
+    auth:
+      password: "secure-password"
+    master:
+      persistence:
+        enabled: true
+        size: 10Gi
 ```
 
-### Update Deployment
-```bash
-helm upgrade postiz . --namespace postiz --values values.yaml
+### Social Media Integration
+
+Configure API keys for social platforms:
+
+```yaml
+postiz-app:
+  secrets:
+    # Twitter/X
+    X_API_KEY: "your-x-api-key"
+    X_API_SECRET: "your-x-api-secret"
+    
+    # LinkedIn
+    LINKEDIN_CLIENT_ID: "your-linkedin-client-id"
+    LINKEDIN_CLIENT_SECRET: "your-linkedin-client-secret"
+    
+    # Reddit
+    REDDIT_CLIENT_ID: "your-reddit-client-id"
+    REDDIT_CLIENT_SECRET: "your-reddit-client-secret"
+    
+    # GitHub
+    GITHUB_CLIENT_ID: "your-github-client-id"
+    GITHUB_CLIENT_SECRET: "your-github-client-secret"
 ```
 
-## Uninstallation
+### High Availability
+
+For production deployments with high availability:
+
+```yaml
+postiz-app:
+  replicaCount: 3
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+  
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+  
+  postgresql:
+    primary:
+      persistence:
+        size: 100Gi
+        storageClass: "fast-ssd"
+  
+  redis:
+    master:
+      persistence:
+        size: 20Gi
+        storageClass: "fast-ssd"
+```
+
+## Monitoring and Observability
+
+The chart includes basic health checks and resource monitoring. For production environments, consider integrating with:
+
+- **Prometheus** for metrics collection
+- **Grafana** for visualization  
+- **ELK Stack** for log aggregation
+
+## Backup and Recovery
+
+### Database Backup
+
+Set up regular PostgreSQL backups:
 
 ```bash
-helm uninstall postiz --namespace postiz
-kubectl delete namespace postiz
+# Create a backup job
+kubectl create job postiz-backup --from=cronjob/postgresql-backup -n postiz
 ```
+
+### Persistent Volume Backup
+
+Ensure your storage provider supports snapshots and configure regular backups of persistent volumes.
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Storage Class Not Found**
-   - Verify available storage classes: `kubectl get storageclass`
-   - Update values.yaml with correct storage class name
+**Pod stuck in Pending state:**
+```bash
+kubectl describe pod <pod-name> -n postiz
+# Check for resource constraints or storage class issues
+```
 
-2. **Ingress Not Working**
-   - Verify ingress controller is running
-   - Check ingress resource: `kubectl describe ingress -n postiz`
-   - Verify DNS points to your cluster
+**Database connection errors:**
+```bash
+kubectl logs deployment/postiz-postiz-app -n postiz
+# Verify DATABASE_URL secret is correctly configured
+```
 
-3. **Database Connection Issues**
-   - Check PostgreSQL pod status: `kubectl get pods -n postiz -l app.kubernetes.io/name=postgresql`
-   - Verify database credentials in secrets
+**Ingress not accessible:**
+```bash
+kubectl get ingress -n postiz
+kubectl describe ingress postiz-postiz-app -n postiz
+# Check ingress controller and DNS configuration
+```
 
-4. **Pod Startup Issues**
-   - Check pod logs: `kubectl logs -f <pod-name> -n postiz`
-   - Verify all required secrets are present
-   - Check resource limits and requests
+### Useful Commands
+
+```bash
+# Check all resources
+kubectl get all -n postiz
+
+# View application logs
+kubectl logs -f deployment/postiz-postiz-app -n postiz
+
+# Access PostgreSQL
+kubectl exec -it sts/postiz-postgresql -n postiz -- psql -U postiz
+
+# Access Redis
+kubectl exec -it sts/postiz-redis-master -n postiz -- redis-cli
+
+# Port forward for local testing
+kubectl port-forward svc/postiz-postiz-app 8080:80 -n postiz
+```
+
+## Uninstallation
+
+To completely remove Postiz:
+
+```bash
+# Uninstall the Helm release
+helm uninstall postiz -n postiz
+
+# Remove persistent volume claims (optional - this will delete all data)
+kubectl delete pvc -l app.kubernetes.io/instance=postiz -n postiz
+
+# Remove namespace
+kubectl delete namespace postiz
+```
+
+## Security Considerations
+
+- Change default passwords for PostgreSQL and Redis
+- Use strong JWT secrets (32+ characters)
+- Enable TLS/SSL for all external communications
+- Configure network policies to restrict pod-to-pod communication
+- Regularly update container images
+- Use Kubernetes secrets for sensitive configuration
 
 ## Support
 
-For issues with:
-- **Postiz application**: https://github.com/gitroomhq/postiz-app
-- **Official Helm chart**: https://github.com/gitroomhq/postiz-helmchart
-- **Documentation**: https://docs.postiz.com
+For issues with this Helm chart configuration:
+1. Check the [Postiz documentation](https://docs.postiz.com)
+2. Review the [official Helm chart](https://github.com/gitroomhq/postiz-helmchart)
+3. Create an issue in this repository
+
+For Postiz application issues:
+- Visit the [Postiz GitHub repository](https://github.com/gitroomhq/postiz-app)
+- Join the [Postiz Discord community](https://discord.postiz.com)
