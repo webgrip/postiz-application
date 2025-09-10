@@ -1,7 +1,7 @@
 {
-  "name": "application-template",
+  "name": "postiz-application",
   "version": "1.0.0",
-  "description": "A comprehensive application template with automated template file synchronization, modern development workflows, and comprehensive tooling infrastructure",
+  "description": "",
   "main": "src/index.js",
   "type": "module",
   "directories": {
@@ -27,25 +27,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webgrip/application-template.git"
+    "url": "git+https://github.com/webgrip/postiz-application.git"
   },
   "keywords": [
-    "template",
+    "postiz",
     "application",
-    "github-actions",
-    "automation",
-    "devops",
-    "docker",
-    "helm",
-    "sops",
-    "age"
+    "template"
   ],
   "author": "WebGrip",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/webgrip/application-template/issues"
+    "url": "https://github.com/webgrip/postiz-application/issues"
   },
-  "homepage": "https://github.com/webgrip/application-template#readme",
+  "homepage": "https://github.com/webgrip/postiz-application#readme",
   "engines": {
     "node": ">=20.10.0",
     "npm": ">=10.2.5"
