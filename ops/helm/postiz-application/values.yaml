@@ -294,18 +294,18 @@ application:
             - name: API_LIMIT
               value: "30"
 
-    service:
-      main:
-        controller: main
-        ports:
-          http:
-            enabled: true
-            port: 80
-            targetPort: 4200
-          api:
-            enabled: true
-            port: 3000
-            targetPort: 3000
+  service:
+    main:
+      controller: main
+      ports:
+        http:
+          enabled: true
+          port: 80
+          targetPort: 4200
+        api:
+          enabled: true
+          port: 3000
+          targetPort: 3000
 
   ingress:
     main:
