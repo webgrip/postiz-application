@@ -3,7 +3,7 @@ name: postiz-deployment
 description: "Deployment configuration for Postiz application using official Helm chart"
 type: application
 version: 0.1.0
-appVersion: "1.3.0"
+appVersion: "2.5.4"
 
 dependencies:
   - name: postiz-app

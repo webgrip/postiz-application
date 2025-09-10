@@ -1,0 +1,367 @@
+namespace: postiz-application
+
+_shared_config:
+  hostname: &hostname postiz-application.staging.k8s.webgrip.nl
+  url: &url https://postiz-application.staging.k8s.webgrip.nl
+
+postiz-app:
+  replicaCount: 1
+
+  image:
+    repository: docker.io/webgrip/postiz-application
+    pullPolicy: Always
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  postgresql:
+    enabled: true
+    auth:
+      username:
+        valueFrom:
+          secretKeyRef:
+            name: postiz-application
+            key: db-user
+      password:
+        valueFrom:
+          secretKeyRef:
+            name: postiz-application
+            key: db-password
+      database:
+        valueFrom:
+          secretKeyRef:
+            name: postiz-application
+            key: db-name
+
+  redis:
+    enabled: true
+    auth:
+      password:
+        valueFrom:
+          secretKeyRef:
+            name: postiz-application
+            key: redis-password
+
+  ingress:
+    enabled: true
+    className: ingress-traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-traefik
+    hosts:
+      - host: *hostname
+        paths:
+          - path: /
+            pathType: Prefix
+            port: 80
+    tls:
+      - secretName: postiz-tls
+        hosts:
+          - *hostname
+
+  # Application environment variables
+  env:
+    FRONTEND_URL: "https://postiz-application.staging.k8s.webgrip.nl"
+    NEXT_PUBLIC_BACKEND_URL: "https://postiz-application.staging.k8s.webgrip.nl/api"
+    BACKEND_INTERNAL_URL: "http://backend:3000"
+    IS_GENERAL: "true"
+    DISABLE_REGISTRATION: "false"
+
+    # Database / Redis
+    DATABASE_URL:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: db-url
+    DB_NAME:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: db-name
+    DB_USER:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: db-user
+    DB_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: db-password
+    REDIS_URL:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: redis-password
+    DB_HOST: "postiz-application.postgres"
+    DB_PORT: "5432"
+    REDIS_HOST: "postiz-application.redis"
+    REDIS_PORT: "6379"
+
+    # Auth / tokens
+    JWT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: jwt-secret
+
+    # Email
+    EMAIL_FROM_ADDRESS:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: email-from-address
+    EMAIL_FROM_NAME:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: email-from-name
+
+    # API keys and platform clients
+    X_API_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: x-api-key
+    X_API_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: x-api-secret
+    OPENAI_API_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: openai-api-key
+    RESEND_API_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: resend-api-key
+    STORAGE_PROVIDER: "cloudflare"
+
+    # Social / OAuth clients
+    LINKEDIN_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: linkedin-client-id
+    LINKEDIN_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: linkedin-client-secret
+    GITHUB_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: github-client-id
+    GITHUB_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: github-client-secret
+    REDDIT_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: reddit-client-id
+    REDDIT_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: reddit-client-secret
+    DISCORD_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: discord-client-id
+    DISCORD_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: discord-client-secret
+    DISCORD_BOT_TOKEN_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: discord-bot-token-id
+    TELEGRAM_BOT_TOKEN:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: telegram-bot-token
+    TELEGRAM_BOT_NAME:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: telegram-bot-name
+    THREADS_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: threads-client-id
+    THREADS_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: threads-client-secret
+    FACEBOOK_APP_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: facebook-app-id
+    FACEBOOK_APP_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: facebook-app-secret
+    PINTEREST_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: pinterest-client-id
+    PINTEREST_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: pinterest-client-secret
+
+    # Misc and developer flags from .env
+    MASTODON_URL: "https://mastodon.social"
+    NEXT_PUBLIC_DISCORD_SUPPORT: ""
+    NEXT_PUBLIC_POLOTNO: ""
+    NOT_SECURED: "true"
+    API_LIMIT: "30"
+    FEE_AMOUNT: "0.05"
+    STRIPE_PUBLISHABLE_KEY: ""
+    STRIPE_SECRET_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: stripe-secret-key
+    STRIPE_SIGNING_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: stripe-signing-key
+    STRIPE_SIGNING_KEY_CONNECT:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: stripe-signing-key-connect
+    NX_ADD_PLUGINS: "false"
+
+    # Slack
+    SLACK_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: slack-id
+    SLACK_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: slack-secret
+    SLACK_SIGNING_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: slack-signing-secret
+
+    # YouTube
+    YOUTUBE_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: youtube-client-id
+    YOUTUBE_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: youtube-client-secret
+
+    # Cloudflare
+    CLOUDFLARE_ACCOUNT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: cloudflare-account-id
+    CLOUDFLARE_ACCESS_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: cloudflare-access-key
+    CLOUDFLARE_SECRET_ACCESS_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: cloudflare-secret-access-key
+    CLOUDFLARE_BUCKETNAME:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: cloudflare-bucketname
+    CLOUDFLARE_BUCKET_URL:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: cloudflare-bucket-url
+    CLOUDFLARE_REGION:
+      valueFrom:
+        secretKeyRef:
+          name: postiz-application
+          key: cloudflare-region
+
+  # Sensitive environment variables (stored in Kubernetes Secrets)
+  secrets:
+    # Database connection string (auto-generated based on PostgreSQL config)
+    DATABASE_URL: "postgresql://postiz:postiz-password@postiz-postgresql:5432/postiz"
+
+    # Redis connection string (auto-generated based on Redis config)
+    REDIS_URL: "redis://:postiz-redis-password@postiz-redis-master:6379"
+
+    # JWT secret for authentication (REQUIRED: Generate a secure random string)
+    JWT_SECRET: "" # REQUIRED: Set a secure JWT secret (e.g., run: openssl rand -base64 32)
+
+    # Social media API keys (optional but recommended for full functionality)
+    X_API_KEY: ""
+    X_API_SECRET: ""
+    LINKEDIN_CLIENT_ID: ""
+    LINKEDIN_CLIENT_SECRET: ""
+    REDDIT_CLIENT_ID: ""
+    REDDIT_CLIENT_SECRET: ""
+    GITHUB_CLIENT_ID: ""
+    GITHUB_CLIENT_SECRET: ""
+
+    # Email notification configuration (optional)
+    RESEND_API_KEY: ""
+
+    # Cloud storage configuration (optional - for media uploads)
+    CLOUDFLARE_ACCOUNT_ID: ""
+    CLOUDFLARE_ACCESS_KEY: ""
+    CLOUDFLARE_SECRET_ACCESS_KEY: ""
+    CLOUDFLARE_BUCKETNAME: ""
+    CLOUDFLARE_BUCKET_URL: ""
+
+  # Resource limits and requests
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler configuration
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+
+  # Advanced scheduling configuration
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
