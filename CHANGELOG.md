@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/webgrip/postiz-application/compare/1.0.11...1.0.12) (2025-09-10)
+
+
+### Bug Fixes
+
+* referenced secret that doesn't exist ([cc04673](https://github.com/webgrip/postiz-application/commit/cc0467390f3f45036b7f70ea7ecd0ef19b1236a2))
+
 ## [1.0.11](https://github.com/webgrip/postiz-application/compare/1.0.10...1.0.11) (2025-09-10)
 
 
