@@ -9,13 +9,12 @@ application:
 
   controllers:
     main:
-      pod:
-        securityContext:
-          runAsNonRoot: true
-          seccompProfile:
-            type: RuntimeDefault
-          fsGroup: 1500
-          fsGroupChangePolicy: OnRootMismatch
+      # pod:
+      #   securityContext:
+      #     seccompProfile:
+      #       type: RuntimeDefault
+      #     fsGroup: 1500
+      #     fsGroupChangePolicy: OnRootMismatch
 
       containers:
         main:
@@ -23,10 +22,10 @@ application:
             repository: docker.io/webgrip/postiz-application
             tag: "latest"
             pullPolicy: Always
-          securityContext:
-            runAsUser: 1500
-            runAsGroup: 1500
-            allowPrivilegeEscalation: false
+          # securityContext:
+          #   runAsUser: 1500
+          #   runAsGroup: 1500
+          #   allowPrivilegeEscalation: false
           env:
             - name: FRONTEND_URL
               value: "https://postiz-application.staging.k8s.webgrip.nl"
