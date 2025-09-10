@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/webgrip/postiz-application/compare/1.0.12...1.0.13) (2025-09-10)
+
+
+### Bug Fixes
+
+* redeploy ([d2d7945](https://github.com/webgrip/postiz-application/commit/d2d794596611a389710a23efe2364d93c57730f4))
+
 ## [1.0.12](https://github.com/webgrip/postiz-application/compare/1.0.11...1.0.12) (2025-09-10)
 
 
