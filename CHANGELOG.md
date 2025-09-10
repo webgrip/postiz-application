@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/webgrip/postiz-application/compare/1.0.6...1.0.7) (2025-09-10)
+
+
+### Bug Fixes
+
+* new deploy ([e247f60](https://github.com/webgrip/postiz-application/commit/e247f60079898050023fd182705357ba842e4efb))
+
 ## [1.0.6](https://github.com/webgrip/postiz-application/compare/1.0.5...1.0.6) (2025-09-10)
 
 
