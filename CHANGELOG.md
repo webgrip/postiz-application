@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/webgrip/postiz-application/compare/1.0.15...1.0.16) (2025-09-10)
+
+
+### Bug Fixes
+
+* get rid of sec context ([cf08418](https://github.com/webgrip/postiz-application/commit/cf0841841079a73343318a0e52d4ddf6be87a027))
+
 ## [1.0.15](https://github.com/webgrip/postiz-application/compare/1.0.14...1.0.15) (2025-09-10)
 
 
