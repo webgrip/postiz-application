@@ -266,23 +266,23 @@ application:
             # Stripe
             - name: FEE_AMOUNT
               value: "0.05"
-            - name: STRIPE_PUBLISHABLE_KEY
-              value: ""
-            - name: STRIPE_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: postiz-application-secrets-2
-                  key: stripe-secret-key
-            - name: STRIPE_SIGNING_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: postiz-application-secrets-2
-                  key: stripe-signing-key
-            - name: STRIPE_SIGNING_KEY_CONNECT
-              valueFrom:
-                secretKeyRef:
-                  name: postiz-application-secrets-2
-                  key: stripe-signing-key-connect
+            # - name: STRIPE_PUBLISHABLE_KEY
+            #   value: ""
+            # - name: STRIPE_SECRET_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postiz-application-secrets-2
+            #       key: stripe-secret-key
+            # - name: STRIPE_SIGNING_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postiz-application-secrets-2
+            #       key: stripe-signing-key
+            # - name: STRIPE_SIGNING_KEY_CONNECT
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postiz-application-secrets-2
+            #       key: stripe-signing-key-connect
             - name: NX_ADD_PLUGINS
               value: "false"
 
