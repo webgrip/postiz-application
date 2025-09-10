@@ -341,7 +341,10 @@ postgresql:
     username: postiz
     database: postiz
     existingSecret: postiz-application-secrets-2
-    existingSecretPasswordKey: db-password
+    secretKeys:
+      adminPasswordKey: db-password
+      userPasswordKey: db-password
+      replicationPasswordKey: db-password
   primary:
     persistence:
       enabled: true
