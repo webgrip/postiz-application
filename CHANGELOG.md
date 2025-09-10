@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/webgrip/postiz-application/compare/1.0.10...1.0.11) (2025-09-10)
+
+
+### Bug Fixes
+
+* set keys for postgres passwords ([c62bcf4](https://github.com/webgrip/postiz-application/commit/c62bcf40d122694627ac8dab12265fa8241fae90))
+
 ## [1.0.10](https://github.com/webgrip/postiz-application/compare/1.0.9...1.0.10) (2025-09-10)
 
 
