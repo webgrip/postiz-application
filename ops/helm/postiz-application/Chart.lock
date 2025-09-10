@@ -1,6 +1,12 @@
 dependencies:
-- name: postiz-app
-  repository: oci://ghcr.io/gitroomhq/postiz-helmchart/charts
-  version: 1.0.5
-digest: sha256:2a0ab00f7aeac7ace60b9d17a3860c89d396aae7fe9bdbaa286dcda7ca2460be
-generated: "2025-09-09T15:56:38.905978522Z"
+- name: app-template
+  repository: https://bjw-s-labs.github.io/helm-charts
+  version: 4.2.0
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.7.27
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 22.0.7
+digest: sha256:1da8fd74feb1ab826194bb0938897a76e2768f4f11aca29e2b8c8c5f19320799
+generated: "2025-09-10T18:25:04.94325474+02:00"
