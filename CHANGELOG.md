@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/webgrip/postiz-application/compare/1.0.9...1.0.10) (2025-09-10)
+
+
+### Bug Fixes
+
+* indent ([9db8662](https://github.com/webgrip/postiz-application/commit/9db866202bae8147658cab78a2fce872ed46dfb2))
+
 ## [1.0.9](https://github.com/webgrip/postiz-application/compare/1.0.8...1.0.9) (2025-09-10)
 
 
