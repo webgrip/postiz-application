@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/webgrip/postiz-application/compare/1.0.5...1.0.6) (2025-09-10)
+
+
+### Bug Fixes
+
+* use bwj ([5fa93f8](https://github.com/webgrip/postiz-application/commit/5fa93f886e4bf54ac929e8e6163a291910d770d4))
+
 ## [1.0.5](https://github.com/webgrip/postiz-application/compare/1.0.4...1.0.5) (2025-09-10)
 
 
