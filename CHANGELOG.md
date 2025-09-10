@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/webgrip/postiz-application/compare/1.0.1...1.0.2) (2025-09-10)
+
+
+### Bug Fixes
+
+* values ([7a88ae2](https://github.com/webgrip/postiz-application/commit/7a88ae27b206817364536f76885d8965423cc724))
+
 ## [1.0.1](https://github.com/webgrip/postiz-application/compare/1.0.0...1.0.1) (2025-09-10)
 
 
