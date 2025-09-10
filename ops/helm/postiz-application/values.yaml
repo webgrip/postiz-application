@@ -295,14 +295,15 @@ application:
               value: "30"
 
     service:
-      controller: main
-      ports:
-        http:
-          port: 80
-          targetPort: 4200
-        api:
-          port: 3000
-          targetPort: 3000
+      main:
+        controller: main
+        ports:
+          http:
+            port: 80
+            targetPort: 4200
+          api:
+            port: 3000
+            targetPort: 3000
 
   ingress:
     main:
