@@ -1,3 +1,10 @@
+## [1.0.15](https://github.com/webgrip/postiz-application/compare/1.0.14...1.0.15) (2025-09-10)
+
+
+### Bug Fixes
+
+* referenced env vars ([bb555b1](https://github.com/webgrip/postiz-application/commit/bb555b1a1ae79ad9c971ede8ec0257f8e05998db))
+
 ## [1.0.14](https://github.com/webgrip/postiz-application/compare/1.0.13...1.0.14) (2025-09-10)
 
 
