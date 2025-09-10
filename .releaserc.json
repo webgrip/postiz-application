@@ -14,9 +14,7 @@
       "@semantic-release/git",
       {
         "assets": [
-          "CHANGELOG.md",
-          "package.json",
-          "ops/helm/postiz-application/Chart.yaml"
+          "CHANGELOG.md"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]"
       }
