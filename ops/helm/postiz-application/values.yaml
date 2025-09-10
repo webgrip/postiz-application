@@ -27,25 +27,6 @@ application:
             runAsUser: 1500
             runAsGroup: 1500
             allowPrivilegeEscalation: false
-          probes:
-            readiness:
-              initialDelaySeconds: 10
-              periodSeconds: 10
-              timeoutSeconds: 5
-              successThreshold: 1
-              failureThreshold: 3
-              httpGet:
-                path: /healthz
-                port: 4200
-            liveness:
-              initialDelaySeconds: 30
-              periodSeconds: 10
-              timeoutSeconds: 5
-              successThreshold: 1
-              failureThreshold: 3
-              httpGet:
-                path: /healthz
-                port: 4200
           env:
             - name: FRONTEND_URL
               value: "https://postiz-application.staging.k8s.webgrip.nl"
@@ -314,21 +295,36 @@ application:
               value: "30"
 
     service:
-      type: ClusterIP
-      port: 80
+      main:
+        controller: main
+        ports:
+          http:
+            port: 80
+            targetPort: 4200
+          api:
+            port: 3000
+            targetPort: 3000
 
-    ingress:
+  ingress:
+    main:
       enabled: true
       className: ingress-traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-traefik
+        traefik.ingress.kubernetes.io/router.middlewares: ingress-traefik-ryan-home-ip-allow-list@kubernetescrd
       hosts:
         - host: *hostname
           paths:
             - path: /
-              pathType: Prefix
+              service:
+                identifier: main
+                port: http
+            - path: /api
+              service:
+                identifier: main
+                port: api
       tls:
-        - secretName: postiz-tls
+        - secretName: letsencrypt-postiz-application
           hosts:
             - *hostname
 
