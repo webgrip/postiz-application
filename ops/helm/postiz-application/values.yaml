@@ -19,30 +19,17 @@ postiz-app:
   postgresql:
     enabled: true
     auth:
-      username:
-        valueFrom:
-          secretKeyRef:
-            name: postiz-application
-            key: db-user
-      password:
-        valueFrom:
-          secretKeyRef:
-            name: postiz-application
-            key: db-password
-      database:
-        valueFrom:
-          secretKeyRef:
-            name: postiz-application
-            key: db-name
+      # The postgresql subchart expects plain string values here.
+      # Use build-time or CI-injected values (or leave defaults) instead of object mappings.
+      username: postiz
+      password: postiz-password
+      database: postiz
 
   redis:
     enabled: true
     auth:
-      password:
-        valueFrom:
-          secretKeyRef:
-            name: postiz-application
-            key: redis-password
+      # Redis password must be a string for the redis/postgres subcharts.
+      password: postiz-redis-password
 
   ingress:
     enabled: true
@@ -314,37 +301,6 @@ postiz-app:
           name: postiz-application
           key: cloudflare-region
 
-  # Sensitive environment variables (stored in Kubernetes Secrets)
-  secrets:
-    # Database connection string (auto-generated based on PostgreSQL config)
-    DATABASE_URL: "postgresql://postiz:postiz-password@postiz-postgresql:5432/postiz"
-
-    # Redis connection string (auto-generated based on Redis config)
-    REDIS_URL: "redis://:postiz-redis-password@postiz-redis-master:6379"
-
-    # JWT secret for authentication (REQUIRED: Generate a secure random string)
-    JWT_SECRET: "" # REQUIRED: Set a secure JWT secret (e.g., run: openssl rand -base64 32)
-
-    # Social media API keys (optional but recommended for full functionality)
-    X_API_KEY: ""
-    X_API_SECRET: ""
-    LINKEDIN_CLIENT_ID: ""
-    LINKEDIN_CLIENT_SECRET: ""
-    REDDIT_CLIENT_ID: ""
-    REDDIT_CLIENT_SECRET: ""
-    GITHUB_CLIENT_ID: ""
-    GITHUB_CLIENT_SECRET: ""
-
-    # Email notification configuration (optional)
-    RESEND_API_KEY: ""
-
-    # Cloud storage configuration (optional - for media uploads)
-    CLOUDFLARE_ACCOUNT_ID: ""
-    CLOUDFLARE_ACCESS_KEY: ""
-    CLOUDFLARE_SECRET_ACCESS_KEY: ""
-    CLOUDFLARE_BUCKETNAME: ""
-    CLOUDFLARE_BUCKET_URL: ""
-
   # Resource limits and requests
   resources:
     limits:
@@ -353,15 +309,3 @@ postiz-app:
     requests:
       cpu: 500m
       memory: 512Mi
-
-  # Horizontal Pod Autoscaler configuration
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 3
-    targetCPUUtilizationPercentage: 80
-
-  # Advanced scheduling configuration
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
