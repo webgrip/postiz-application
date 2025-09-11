@@ -52,22 +52,22 @@ application:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: db-url
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: db-name
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: db-user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: db-password
 
             # Redis
@@ -78,186 +78,186 @@ application:
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: redis-password
 
             # Auth / tokens
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: jwt-secret
 
             # Email
             - name: EMAIL_FROM_ADDRESS
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: email-from-address
             - name: EMAIL_FROM_NAME
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: email-from-name
 
             # - name: RESEND_API_KEY
             #   valueFrom:
             #     secretKeyRef:
-            #       name: postiz-application-secrets-2
+            #       name: postiz-application-secrets
             #       key: resend-api-key
 
             # Social logins
             - name: X_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: x-api-key
             - name: X_API_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: x-api-secret
             - name: LINKEDIN_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: linkedin-client-id
             - name: LINKEDIN_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: linkedin-client-secret
             - name: GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: github-client-id
             - name: GITHUB_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: github-client-secret
             - name: REDDIT_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: reddit-client-id
             - name: REDDIT_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: reddit-client-secret
             - name: DISCORD_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: discord-client-id
             - name: DISCORD_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: discord-client-secret
             - name: DISCORD_BOT_TOKEN_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: discord-bot-token-id
             - name: TELEGRAM_BOT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: telegram-bot-token
             - name: TELEGRAM_BOT_NAME
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: telegram-bot-name
             - name: THREADS_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: threads-client-id
             - name: THREADS_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: threads-client-secret
             - name: FACEBOOK_APP_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: facebook-app-id
             - name: FACEBOOK_APP_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: facebook-app-secret
             - name: PINTEREST_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: pinterest-client-id
             - name: PINTEREST_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: pinterest-client-secret
             - name: SLACK_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: slack-id
             - name: SLACK_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: slack-secret
             - name: SLACK_SIGNING_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: slack-signing-secret
             - name: YOUTUBE_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: youtube-client-id
             - name: YOUTUBE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: youtube-client-secret
 
             # Cloudflare
             - name: CLOUDFLARE_ACCOUNT_ID
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: cloudflare-account-id
             - name: CLOUDFLARE_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: cloudflare-access-key
             - name: CLOUDFLARE_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: cloudflare-secret-access-key
             - name: CLOUDFLARE_BUCKETNAME
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: cloudflare-bucketname
             - name: CLOUDFLARE_BUCKET_URL
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: cloudflare-bucket-url
             - name: CLOUDFLARE_REGION
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: cloudflare-region
             - name: STORAGE_PROVIDER
               value: "cloudflare"
@@ -270,17 +270,17 @@ application:
             # - name: STRIPE_SECRET_KEY
             #   valueFrom:
             #     secretKeyRef:
-            #       name: postiz-application-secrets-2
+            #       name: postiz-application-secrets
             #       key: stripe-secret-key
             # - name: STRIPE_SIGNING_KEY
             #   valueFrom:
             #     secretKeyRef:
-            #       name: postiz-application-secrets-2
+            #       name: postiz-application-secrets
             #       key: stripe-signing-key
             # - name: STRIPE_SIGNING_KEY_CONNECT
             #   valueFrom:
             #     secretKeyRef:
-            #       name: postiz-application-secrets-2
+            #       name: postiz-application-secrets
             #       key: stripe-signing-key-connect
             - name: NX_ADD_PLUGINS
               value: "false"
@@ -288,7 +288,7 @@ application:
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: postiz-application-secrets-2
+                  name: postiz-application-secrets
                   key: openai-api-key
             - name: API_LIMIT
               value: "30"
@@ -339,7 +339,7 @@ postgresql:
   auth:
     username: postiz
     database: postiz
-    existingSecret: postiz-application-secrets-2
+    existingSecret: postiz-application-secrets
     secretKeys:
       adminPasswordKey: db-password
       userPasswordKey: db-password
@@ -366,7 +366,7 @@ redis:
   architecture: standalone
   auth:
     enabled: true
-    existingSecret: postiz-application-secrets-2
+    existingSecret: postiz-application-secrets
     existingSecretPasswordKey: redis-password
   master:
     persistence:
