@@ -72,7 +72,7 @@ application:
 
             # Redis
             - name: REDIS_HOST
-              value: "postiz-application.redis"
+              value: "postiz-application-redis"
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_URL
