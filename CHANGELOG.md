@@ -1,3 +1,10 @@
+## [1.0.21](https://github.com/webgrip/postiz-application/compare/1.0.20...1.0.21) (2025-09-11)
+
+
+### Bug Fixes
+
+* proper urls ([01400d1](https://github.com/webgrip/postiz-application/commit/01400d1683633445fcb97cda151ff55eec4b6743))
+
 ## [1.0.20](https://github.com/webgrip/postiz-application/compare/1.0.19...1.0.20) (2025-09-11)
 
 
