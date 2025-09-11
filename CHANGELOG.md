@@ -1,3 +1,11 @@
+## [1.0.20](https://github.com/webgrip/postiz-application/compare/1.0.19...1.0.20) (2025-09-11)
+
+
+### Bug Fixes
+
+* use redis-url to fill the REDIS_URL ([fffc223](https://github.com/webgrip/postiz-application/commit/fffc2235537d5d404c81b49027828f165692e699))
+* use the normal secret name since the dep chart no longer makes one too ([899f09f](https://github.com/webgrip/postiz-application/commit/899f09fcdd1e96df26c5c63166d35ee338fad891))
+
 ## [1.0.19](https://github.com/webgrip/postiz-application/compare/1.0.18...1.0.19) (2025-09-11)
 
 
