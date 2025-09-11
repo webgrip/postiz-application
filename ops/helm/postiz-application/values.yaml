@@ -17,7 +17,7 @@ application:
       #     fsGroupChangePolicy: OnRootMismatch
 
       containers:
-        main:
+        app:
           image:
             repository: docker.io/webgrip/postiz-application
             tag: "latest"
@@ -46,7 +46,7 @@ application:
 
             # Database
             - name: DB_HOST
-              value: "postiz-application.postgres"
+              value: "postiz-application-postgresql"
             - name: DB_PORT
               value: "5432"
             - name: DATABASE_URL
