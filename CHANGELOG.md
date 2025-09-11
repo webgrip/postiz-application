@@ -1,3 +1,10 @@
+## [1.0.18](https://github.com/webgrip/postiz-application/compare/1.0.17...1.0.18) (2025-09-11)
+
+
+### Bug Fixes
+
+* redeploy and use app so version gets set instead of latest ([4dc60ef](https://github.com/webgrip/postiz-application/commit/4dc60eff7bf3b37d334a4389cb888282458270ee))
+
 ## [1.0.17](https://github.com/webgrip/postiz-application/compare/1.0.16...1.0.17) (2025-09-10)
 
 
