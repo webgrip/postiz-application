@@ -79,7 +79,7 @@ application:
               valueFrom:
                 secretKeyRef:
                   name: postiz-application-secrets
-                  key: redis-password
+                  key: redis-url
 
             # Auth / tokens
             - name: JWT_SECRET
