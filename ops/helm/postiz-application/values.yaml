@@ -34,7 +34,7 @@ application:
             - name: NEXT_PUBLIC_BACKEND_URL
               value: "https://api.postiz-application.staging.k8s.webgrip.nl"
             - name: BACKEND_INTERNAL_URL
-              value: "http://localhost:3000"
+              value: "https://api.postiz-application.staging.k8s.webgrip.nl"
             - name: PORT
               value: "3000"
             # If your backend framework uses a different env var for port, add it here
