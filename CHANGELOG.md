@@ -1,3 +1,10 @@
+## [1.0.26](https://github.com/webgrip/postiz-application/compare/1.0.25...1.0.26) (2025-09-13)
+
+
+### Bug Fixes
+
+* new redis url ([cb75783](https://github.com/webgrip/postiz-application/commit/cb757831125f49a17ab341cacf8e726ebab91444))
+
 ## [1.0.25](https://github.com/webgrip/postiz-application/compare/1.0.24...1.0.25) (2025-09-13)
 
 
