@@ -1,3 +1,10 @@
+## [1.0.22](https://github.com/webgrip/postiz-application/compare/1.0.21...1.0.22) (2025-09-13)
+
+
+### Bug Fixes
+
+* Try localhost:3000 ([5c3d53e](https://github.com/webgrip/postiz-application/commit/5c3d53ef142f5a7b06c89ff2e849c8a2ff639d92))
+
 ## [1.0.21](https://github.com/webgrip/postiz-application/compare/1.0.20...1.0.21) (2025-09-11)
 
 
