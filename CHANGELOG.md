@@ -1,3 +1,10 @@
+## [1.0.34](https://github.com/webgrip/postiz-application/compare/1.0.33...1.0.34) (2025-09-13)
+
+
+### Bug Fixes
+
+* run it on subdomain ([a980d11](https://github.com/webgrip/postiz-application/commit/a980d11397b1b2a3bdb6ab3635ee65dab0dd6b1c))
+
 ## [1.0.33](https://github.com/webgrip/postiz-application/compare/1.0.32...1.0.33) (2025-09-13)
 
 
