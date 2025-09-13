@@ -1,3 +1,10 @@
+## [1.0.31](https://github.com/webgrip/postiz-application/compare/1.0.30...1.0.31) (2025-09-13)
+
+
+### Bug Fixes
+
+* main to http ([32ef7f8](https://github.com/webgrip/postiz-application/commit/32ef7f8f01d1b3f1a373b2252574be1653123b43))
+
 ## [1.0.30](https://github.com/webgrip/postiz-application/compare/1.0.29...1.0.30) (2025-09-13)
 
 
