@@ -1,3 +1,10 @@
+## [1.0.30](https://github.com/webgrip/postiz-application/compare/1.0.29...1.0.30) (2025-09-13)
+
+
+### Bug Fixes
+
+* move stuff around ([c875caa](https://github.com/webgrip/postiz-application/commit/c875caaf2724f438cd68732056b4ee04eb686126))
+
 ## [1.0.29](https://github.com/webgrip/postiz-application/compare/1.0.28...1.0.29) (2025-09-13)
 
 
