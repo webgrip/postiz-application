@@ -1,3 +1,10 @@
+## [1.0.38](https://github.com/webgrip/postiz-application/compare/1.0.37...1.0.38) (2025-09-13)
+
+
+### Bug Fixes
+
+* try setting internal url to public url ([fd23f00](https://github.com/webgrip/postiz-application/commit/fd23f00c182c0e49743dd6ec9e13a0208e05475e))
+
 ## [1.0.37](https://github.com/webgrip/postiz-application/compare/1.0.36...1.0.37) (2025-09-13)
 
 
