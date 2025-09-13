@@ -1,3 +1,10 @@
+## [1.0.36](https://github.com/webgrip/postiz-application/compare/1.0.35...1.0.36) (2025-09-13)
+
+
+### Bug Fixes
+
+* allow oauth apps to authenticate ([95c0ec2](https://github.com/webgrip/postiz-application/commit/95c0ec2cc38954fc69873fa3549eb9f8cee05249))
+
 ## [1.0.35](https://github.com/webgrip/postiz-application/compare/1.0.34...1.0.35) (2025-09-13)
 
 
