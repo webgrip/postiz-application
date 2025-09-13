@@ -30,9 +30,9 @@ application:
             - name: MAIN_URL
               value: *url
             - name: FRONTEND_URL
-              value: *url
+              value: "http://localhost:4200"
             - name: NEXT_PUBLIC_BACKEND_URL
-              value: "https://postiz-application.staging.k8s.webgrip.nl/api"
+              value: "http://localhost:3000"
             - name: BACKEND_INTERNAL_URL
               value: "http://localhost:3000"
             - name: PORT
@@ -328,10 +328,6 @@ application:
         - host: *hostname
           paths:
             - path: /
-              service:
-                identifier: main
-                port: http
-            - path: /api
               service:
                 identifier: main
                 port: api
