@@ -1,3 +1,10 @@
+## [1.0.24](https://github.com/webgrip/postiz-application/compare/1.0.23...1.0.24) (2025-09-13)
+
+
+### Bug Fixes
+
+* redeploy completely, but without redis pw ([b3f7639](https://github.com/webgrip/postiz-application/commit/b3f7639325da165a24e7dda60f3108c9f0297747))
+
 ## [1.0.23](https://github.com/webgrip/postiz-application/compare/1.0.22...1.0.23) (2025-09-13)
 
 
