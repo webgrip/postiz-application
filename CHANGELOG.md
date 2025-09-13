@@ -1,3 +1,10 @@
+## [1.0.23](https://github.com/webgrip/postiz-application/compare/1.0.22...1.0.23) (2025-09-13)
+
+
+### Bug Fixes
+
+* added redis pw ([dde68d7](https://github.com/webgrip/postiz-application/commit/dde68d76c6754ee3ad6173474c53991d891b826d))
+
 ## [1.0.22](https://github.com/webgrip/postiz-application/compare/1.0.21...1.0.22) (2025-09-13)
 
 
