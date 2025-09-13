@@ -1,3 +1,10 @@
+## [1.0.33](https://github.com/webgrip/postiz-application/compare/1.0.32...1.0.33) (2025-09-13)
+
+
+### Bug Fixes
+
+* run two separate services ([0569c80](https://github.com/webgrip/postiz-application/commit/0569c80347695bc8097518c33217fae65e66c904))
+
 ## [1.0.32](https://github.com/webgrip/postiz-application/compare/1.0.31...1.0.32) (2025-09-13)
 
 
