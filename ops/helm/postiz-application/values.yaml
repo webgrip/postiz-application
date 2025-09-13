@@ -83,11 +83,11 @@ application:
                 secretKeyRef:
                   name: postiz-application-secrets
                   key: redis-url
-            # - name: REDIS_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: postiz-application-secrets
-            #       key: redis-password
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postiz-application-secrets
+                  key: redis-password
 
             # Auth / tokens
             - name: JWT_SECRET
@@ -374,10 +374,10 @@ redis:
     tag: "8.2.1"
     pullPolicy: IfNotPresent
   architecture: standalone
-  # auth:
-  #   enabled: true
-  #   existingSecret: postiz-application-secrets
-  #   existingSecretPasswordKey: redis-password
+  auth:
+    enabled: true
+    existingSecret: postiz-application-secrets
+    existingSecretPasswordKey: redis-password
   master:
     persistence:
       enabled: true
