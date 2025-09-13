@@ -1,3 +1,10 @@
+## [1.0.27](https://github.com/webgrip/postiz-application/compare/1.0.26...1.0.27) (2025-09-13)
+
+
+### Bug Fixes
+
+* set main url ([a155245](https://github.com/webgrip/postiz-application/commit/a15524582a411064162724cefc23dd352d8a1f23))
+
 ## [1.0.26](https://github.com/webgrip/postiz-application/compare/1.0.25...1.0.26) (2025-09-13)
 
 
