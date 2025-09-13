@@ -32,7 +32,7 @@ application:
             - name: FRONTEND_URL
               value: *url
             - name: NEXT_PUBLIC_BACKEND_URL
-              value: "https://postiz-application-api.staging.k8s.webgrip.nl/api"
+              value: "https://postiz-application.staging.k8s.webgrip.nl/api"
             - name: BACKEND_INTERNAL_URL
               value: "http://localhost:3000"
             - name: PORT
