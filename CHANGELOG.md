@@ -1,3 +1,10 @@
+## [1.0.32](https://github.com/webgrip/postiz-application/compare/1.0.31...1.0.32) (2025-09-13)
+
+
+### Bug Fixes
+
+* /api to 3000 ([ef26f86](https://github.com/webgrip/postiz-application/commit/ef26f86fd9442e05bdf025e7f56ae2cae3256dd6))
+
 ## [1.0.31](https://github.com/webgrip/postiz-application/compare/1.0.30...1.0.31) (2025-09-13)
 
 
