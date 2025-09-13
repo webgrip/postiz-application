@@ -32,7 +32,7 @@ application:
             - name: FRONTEND_URL
               value: "http://localhost:4200"
             - name: NEXT_PUBLIC_BACKEND_URL
-              value: "http://backend:3000"
+              value: "https://api.postiz-application.staging.k8s.webgrip.nl"
             - name: BACKEND_INTERNAL_URL
               value: "http://localhost:3000"
             - name: PORT
@@ -334,7 +334,9 @@ application:
               service:
                 identifier: frontend
                 port: http
-            - path: /api
+        - host: api.postiz-application.staging.k8s.webgrip.nl
+          paths:
+            - path: /
               service:
                 identifier: backend
                 port: api
@@ -342,6 +344,7 @@ application:
         - secretName: letsencrypt-postiz-application
           hosts:
             - *hostname
+            - api.postiz-application.staging.k8s.webgrip.nl
 
 postgresql:
   enabled: true
