@@ -1,3 +1,10 @@
+## [1.0.29](https://github.com/webgrip/postiz-application/compare/1.0.28...1.0.29) (2025-09-13)
+
+
+### Bug Fixes
+
+* wrong backend url ([c064367](https://github.com/webgrip/postiz-application/commit/c064367a99c287ab2d7e2e5f4fc7fc01349074c0))
+
 ## [1.0.28](https://github.com/webgrip/postiz-application/compare/1.0.27...1.0.28) (2025-09-13)
 
 
