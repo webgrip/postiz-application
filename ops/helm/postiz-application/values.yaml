@@ -27,10 +27,12 @@ application:
           #   runAsGroup: 1500
           #   allowPrivilegeEscalation: false
           env:
+            - name: MAIN_URL
+              value: *url
             - name: FRONTEND_URL
-              value: "https://postiz-application.staging.k8s.webgrip.nl"
+              value: *url
             - name: NEXT_PUBLIC_BACKEND_URL
-              value: "https://postiz-application.staging.k8s.webgrip.nl/api"
+              value: *url/api
             - name: BACKEND_INTERNAL_URL
               value: "http://localhost:3000"
             - name: PORT
