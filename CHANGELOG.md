@@ -1,3 +1,10 @@
+## [1.0.28](https://github.com/webgrip/postiz-application/compare/1.0.27...1.0.28) (2025-09-13)
+
+
+### Bug Fixes
+
+* should be string ([4338900](https://github.com/webgrip/postiz-application/commit/4338900cbbef8a7ebf41687da25d310805d25798))
+
 ## [1.0.27](https://github.com/webgrip/postiz-application/compare/1.0.26...1.0.27) (2025-09-13)
 
 
