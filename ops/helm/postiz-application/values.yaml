@@ -330,7 +330,7 @@ application:
             - path: /
               service:
                 identifier: main
-                port: api
+                port: http
       # /api is routed to service 'main' port 3000 (API)
       tls:
         - secretName: letsencrypt-postiz-application
