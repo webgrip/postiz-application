@@ -1,3 +1,10 @@
+## [1.0.39](https://github.com/webgrip/postiz-application/compare/1.0.38...1.0.39) (2025-09-13)
+
+
+### Bug Fixes
+
+* update custom domain ([1f1ed72](https://github.com/webgrip/postiz-application/commit/1f1ed727522a9e47d35fe1075e0f1507e7eeff97))
+
 ## [1.0.38](https://github.com/webgrip/postiz-application/compare/1.0.37...1.0.38) (2025-09-13)
 
 
