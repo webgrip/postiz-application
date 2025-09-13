@@ -32,7 +32,10 @@ application:
             - name: NEXT_PUBLIC_BACKEND_URL
               value: "https://postiz-application.staging.k8s.webgrip.nl/api"
             - name: BACKEND_INTERNAL_URL
-              value: "http://backend:3000"
+              value: "http://localhost:3000"
+            - name: PORT
+              value: "3000"
+            # If your backend framework uses a different env var for port, add it here
             - name: IS_GENERAL
               value: "true"
             - name: DISABLE_REGISTRATION
@@ -305,6 +308,7 @@ application:
           enabled: true
           port: 3000
           targetPort: 3000
+  # Ensure your backend container listens on port 3000 for API traffic
 
   ingress:
     main:
@@ -324,6 +328,7 @@ application:
               service:
                 identifier: main
                 port: api
+      # /api is routed to service 'main' port 3000 (API)
       tls:
         - secretName: letsencrypt-postiz-application
           hosts:
