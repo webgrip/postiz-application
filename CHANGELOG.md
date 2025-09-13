@@ -1,3 +1,10 @@
+## [1.0.35](https://github.com/webgrip/postiz-application/compare/1.0.34...1.0.35) (2025-09-13)
+
+
+### Bug Fixes
+
+* set proper frontend url ([cf9c91d](https://github.com/webgrip/postiz-application/commit/cf9c91d125c89a99a6bb930e0ce22574d8c6256f))
+
 ## [1.0.34](https://github.com/webgrip/postiz-application/compare/1.0.33...1.0.34) (2025-09-13)
 
 
