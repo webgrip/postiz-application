@@ -1,3 +1,10 @@
+## [1.0.40](https://github.com/webgrip/postiz-application/compare/1.0.39...1.0.40) (2025-09-19)
+
+
+### Bug Fixes
+
+* pinterest key ([ec384c1](https://github.com/webgrip/postiz-application/commit/ec384c1686decae66560631c09f0ed6a23772979))
+
 ## [1.0.39](https://github.com/webgrip/postiz-application/compare/1.0.38...1.0.39) (2025-09-13)
 
 
